@@ -1,0 +1,13 @@
+1. checker do mapa
+2. fload ao mapa e ver se e valido.
+3. passar o mapa para o jogo
+4. abrires a janela, init
+5. read map and send to image. (ex: 00 passa a parede);
+6. image do map para window.
+7. meter player na imagem.
+8. passar imagem para a window
+9 e 10. collectables para a imagem, imagem para a window
+11. receber keycommands.
+12. fazer mexer o main character.
+13. fazer os collectables desaparecerem.
+14. aparecer a saida.

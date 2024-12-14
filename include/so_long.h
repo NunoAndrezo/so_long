@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/11 02:26:51 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/14 18:07:47 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 # include "../printf/ft_printf.h"
 # include "sprite.h"
 # include "animation.h"
+# include <sys/stat.h>
+# include <fcntl.h>
+# include "../get_next_line/get_next_line_bonus.h"
+
 
 #define MLX_SYNC_IMAGE_WRITABLE		1
 #define MLX_SYNC_WIN_FLUSH_CMD		2
-#define MLX_SYNC_WIN_CMD_COMPLETED		3
-#define WIDTH 					600
-#define HEIGHT 					600
+#define MLX_SYNC_WIN_CMD_COMPLETED	3
+#define WIDTH 						600
+#define HEIGHT 						600
 
 // Images
 typedef struct	s_img

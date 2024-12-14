@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/11 02:26:45 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/14 18:14:51 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ int		exit_game(t_win *game);//, t_img *image);
 int		keyboard(int keycode_keysym, t_win *game);//, t_img *image);
 void		init_game(void);
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	/* 
-	if (map_checker(av[]);
-	 */
-	init_game();
+	if (ac == 2)
+	{
+		if (map_checker(av[1]) && read_map(av[1]))
+			init_game();
+	}
+	else
+		write (2, "Error\n", 6);
 	return (0);
 }
-
 
 void	init_game(void)
 {

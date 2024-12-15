@@ -3,113 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/14 18:14:53 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 03:24:46 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool	map_checker(char *s)
+bool	is_ber(char *file)
 {
-	int		i;
-	int		flag;
+	int	len;
 
-	i = 0;
-	flag = 0;
-	if (*s || s)
-		return (0);
-	while (s[i])
-		i++;
-	i -= 1;
-	while (i > 0)
-	{
-		if (s[i--] == 'r')
-			flag++;
-		if (s[i--] == 'e')
-			flag++;
-		if (s[i--] == 'b')
-			flag++;
-		if (s[i--] == '.')
-			flag++;
-		break;
-	}
-	if (flag == 4)
-		return (1);
-	return (0);
+	len = ft_len(file);
+	return (file[len - 1] != 'r' && file[len - 2] != 'e'
+		&& file[len - 3] != 'b' && file[len - 4] != '.');
 }
 
-bool	read_map(char *path)
+bool	map_copy(char *path, t_game *game)
 {
-	int		fd;
-	char	**line;
-	char	*s;
-	int		row;
-	int		collumn;
-	int		i;
-	int		check;
-
-	row = 0;
-	fd = open(path, O_RDONLY);
-	if (fd != 0)
-	{
-		//ft_free_errors ??
-		write (2,"Error\n", 6);
-		exit (EXIT_FAILURE);
-	}
-		//ler 2 vezes, 1 para saber as dimensoes 
-	s = get_next_line(fd);
-	collumn = ft_len(s);
-	while (s != NULL)
-	{
-		s = get_next_line(fd);
-		if (collumn != ft_len(s))
-		{
-			write (2, "Error in map!\n", 14);
-			free (s);
-			//ft_free_errors(); ??
-			exit (EXIT_FAILURE);
-		}
-		row++;
-		collumn = ft_len(s);
-		free(s);
-	}
-	close(fd);
-	//tenho que fechar o ficheiro do mapa??
-	i = 0;
-	check = row;
-	fd = open(path, O_RDONLY);
-	while (check > 0)
-	{
-		line[i] = get_next_line(fd);
-		check--;
-		i++;
-	}
-	if (checking_map_structure(line, row, collumn) != 0)
-		return (1);
-	return (0);
-}
-
-static bool	checking_map_structure(char **line, int row, int collumn)
-{
+	int	fd;
 	int	i;
-	int	j;
 
-	while (line[j][i])
+	fd = open(path, O_RDONLY);
+	i = 0;
+	game->map[i] = get_next_line(fd);
+	while (++i < game->map_dimensions.y)
 	{
-		i = 0;
-		while (line[j][j])
+		game->map[i] = get_next_line(fd);
+		if (!game->map[i] || !game->map[i][0])
 		{
-			
-			i++;
+			free_my_map(game->map, i);
+			write (2, "Error\n", 6);
+			return (false);
 		}
-		if (collumn != i)
-			return (0);
-		j++;
 	}
-	if (row != j)
-		return (0);
-	return (1);
+	if (i != game->map_dimensions.y)
+	{
+		free_my_map(game->map, i);
+		write (2, "Error\n", 6);
+		return (false);
+	}
+	return (true);
+}
+
+void	map_get_dimensions(char *path, t_game *game)
+{
+	int	fd;
+	char	*line;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		write (2, "Error\n", 6);
+		exit(EXIT_FAILURE);
+	}
+	line = get_next_line(fd);
+	game->map_dimensions.y = 1;
+	game->map_dimensions.x = getlen(line);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		game->map_dimensions.y++;
+		if (getlen(line) != game->map_dimensions.x)
+		{
+			free(line);
+			write (2, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+	}
+	if (line)
+		free(line);
+	close(fd);
+}
+
+bool	valid_map(char *path, t_game *game)
+{
+	map_get_dimensions(path, game);
+	if (game->map_dimensions.x < 3 || game->map_dimensions.y < 3)
+		return (false);
+	game->map = ft_calloc(sizeof(char *), game->map_dimensions.y);
+	if (!game->map)
+		return (false);
+	return (map_copy(path, game));
 }

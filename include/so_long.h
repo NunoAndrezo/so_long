@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/14 18:07:47 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 03:24:55 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,29 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include "../get_next_line/get_next_line_bonus.h"
+# include "../get_next_line/get_next_line.h"
+# include "../libft/libft.h"
 
 
 #define MLX_SYNC_IMAGE_WRITABLE		1
 #define MLX_SYNC_WIN_FLUSH_CMD		2
-#define MLX_SYNC_WIN_CMD_COMPLETED	3
-#define WIDTH 						600
-#define HEIGHT 						600
+#define MLX_SYNC_WIN_CMD_COMPLETED		3
+#define WIDTH 					600
+#define HEIGHT 					600
+
+// Game
+typedef struct s_game
+{
+	char **map;
+	t_map map_dimensions;
+}	t_game;
+
+ // Map
+typedef struct s_map
+{
+	int x;
+	int y;
+} t_map;
 
 // Images
 typedef struct	s_img

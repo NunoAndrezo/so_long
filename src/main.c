@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/14 18:14:51 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/15 03:24:49 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ void		init_game(void);
 
 int	main(int ac, char **av)
 {
-	if (ac == 2)
-	{
-		if (map_checker(av[1]) && read_map(av[1]))
-			init_game();
-	}
-	else
-		write (2, "Error\n", 6);
+	if (ac != 2 || getlen(av[1]) < 4 || is_ber(av[1]))
+		return (write (2, "Error\n", 6));
+	if (valid_map(av[1], ))
+		init_game();
 	return (0);
 }
 

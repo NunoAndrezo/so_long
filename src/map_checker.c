@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/15 03:24:46 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/16 21:18:55 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool	is_ber(char *file)
-{
-	int	len;
-
-	len = ft_len(file);
-	return (file[len - 1] != 'r' && file[len - 2] != 'e'
-		&& file[len - 3] != 'b' && file[len - 4] != '.');
-}
-
-bool	map_copy(char *path, t_game *game)
+static bool	map_copy(char *path, t_game *game)
 {
 	int	fd;
 	int	i;
@@ -48,7 +39,7 @@ bool	map_copy(char *path, t_game *game)
 	return (true);
 }
 
-void	map_get_dimensions(char *path, t_game *game)
+static void	map_get_dimensions(char *path, t_game *game)
 {
 	int	fd;
 	char	*line;
@@ -79,6 +70,35 @@ void	map_get_dimensions(char *path, t_game *game)
 	close(fd);
 }
 
+static bool	chek_playability(t_game *game)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	object_initialization(game);
+	while (game->map[j][i])
+	{
+		i = 0;
+		while (game->map[j][i])
+		{
+			if (game->map[j][i] == 'P')
+				game->object_counter.P++;
+			if (game->map[j][i] == 'C')
+				game->object_counter.C++;
+			if (game->map[j][i] == 'E')
+				game->object_counter.E++; 
+			i++;
+		}
+		j++;
+	}
+	if (game->object_counter.P != 1 || game->object_counter.C <= 0
+		|| game->object_counter.E != 1 || !check_walls(game->map))
+		return (false);
+	return (true);
+}
+
 bool	valid_map(char *path, t_game *game)
 {
 	map_get_dimensions(path, game);
@@ -87,5 +107,7 @@ bool	valid_map(char *path, t_game *game)
 	game->map = ft_calloc(sizeof(char *), game->map_dimensions.y);
 	if (!game->map)
 		return (false);
-	return (map_copy(path, game));
+	if (map_copy(path, game))
+		return (check_playability(game));
+	return (false);
 }

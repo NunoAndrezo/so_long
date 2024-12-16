@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/15 03:24:55 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/16 20:40:57 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <stdbool.h>
 # include "../mlx_linux/mlx.h"
 # include "../printf/ft_printf.h"
-# include "sprite.h"
-# include "animation.h"
 # include <sys/stat.h>
 # include <fcntl.h>
 # include "../get_next_line/get_next_line_bonus.h"
@@ -36,19 +34,37 @@
 #define WIDTH 					600
 #define HEIGHT 					600
 
-// Game
-typedef struct s_game
-{
-	char **map;
-	t_map map_dimensions;
-}	t_game;
-
- // Map
+// Map
 typedef struct s_map
 {
 	int x;
 	int y;
 } t_map;
+
+// Objects, PLAYER, EXIT, COLLECTIBLES
+typedef struct s_objects
+{
+	int	P;
+	int	E;
+	int	C;
+
+} t_objects;
+
+// Game
+typedef struct s_game
+{
+	char 		**map;
+	t_objects	object_counter;
+	t_map 		map_dimensions;
+}	t_game;
+
+typedef struct	s_win
+{
+	void	*mlx_ptr;
+	void	*window_ptr;
+	int	width;
+	int	height;
+}	t_win;
 
 // Images
 typedef struct	s_img
@@ -64,18 +80,15 @@ typedef struct	s_img
 }	t_img;
 
 // Game variables
-typedef struct	s_win
-{
-	t_img	image;
-	void	*mlx_ptr;
-	void	*window_ptr;
-	int	width;
-	int	height;
-}	t_win;
+
 
 t_img	new_file_img(char *path, t_win window);
 t_win	new_window(int width, int height, char *title, bool resizable);
 void	destroy_image(t_img img, t_win window);
 void	destroy_window(t_win w);
+void	object_initialization(t_game *game);
+bool	valid_map(char *path, t_game *game);
+void	init_game(t_game *game);
+bool	check_walls(t_game *game);
 
 #endif

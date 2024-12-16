@@ -6,7 +6,7 @@
 /*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:47 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/06/13 17:45:56 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:00:51 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <stdlib.h>
 
 char	*get_next_line(int fd);
-int		ft_strlen(char *s);
+int		ft_strlen_get(char *s);
 void	ft_organize_buffer(char *buffer);
 char	*ft_strjoin_gnl(char *line, char *buffer);
 int		is_there_newline(char *s);

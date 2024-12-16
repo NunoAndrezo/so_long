@@ -3,78 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/15 03:24:49 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/16 21:18:56 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-/* void		ft_mlx_hooks(t_win *game); */
-int		exit_game(t_win *game);//, t_img *image);
-int		keyboard(int keycode_keysym, t_win *game);//, t_img *image);
-void		init_game(void);
+static int get_len(char *s);
+static bool	is_ber(char *file);
 
 int	main(int ac, char **av)
 {
-	if (ac != 2 || getlen(av[1]) < 4 || is_ber(av[1]))
+	t_game	game;
+
+	if (ac != 2 || get_len(av[1]) < 4 || is_ber(av[1]))
 		return (write (2, "Error\n", 6));
-	if (valid_map(av[1], ))
-		init_game();
-	return (0);
-}
-
-void	init_game(void)
-{
-	t_win		game_window;
-	t_img		image;
-
-	game_window = new_window(WIDTH, HEIGHT, "So Long", false);
-
-	// creating a image and putting it to the window:
-	image = new_file_img("assets/menu_start_game_resized1.xpm", game_window);
-	mlx_put_image_to_window(game_window.mlx_ptr, game_window.window_ptr, image.img_ptr, 0, 0);
-	
-	// Setting up the hooks:
-	mlx_key_hook(game_window.window_ptr, keyboard, &game_window);
-	mlx_hook(game_window.window_ptr, 17, 1L<<0, exit_game, &game_window);
-	//mlx_loop_hook(game.mlx, render_next_frame, &game);
-
-	// Looping the window:
-	mlx_loop(game_window.mlx_ptr);
-}
-
-int	exit_game(t_win *game)//, t_img *image)
-{
-	if (game)
+	if (valid_map(av[1], &game))
 	{
-		//mlx_destroy_image(&game, &image);
-		destroy_window(*game);
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
-		ft_printf("Thank you for playing!\n");
-		exit(EXIT_SUCCESS);
+		flood_fill(&game);
+		init_game(&game);
 	}
 	return (0);
 }
-
-int	keyboard(int keycode_keysym, t_win *game)//, t_img *image)
+static bool	is_ber(char *file)
 {
-	int	k;
+	int	len;
 
-	k = keycode_keysym;
-	if (k == 0xff1b) // == keysym nbr 9 == esc
-	{
-		//mlx_destroy_image(&game, &image);
-		destroy_window(*game);
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
-		ft_printf("Thank you for playing!\n");
-		exit(EXIT_SUCCESS);
-	}
-/* 	if (k == 0x77 || k == 0x64 || k == 0x73 || k == 0x61)
-		walk_with_maincharacter(k); */
-	return (0);
+	len = get_len(file);
+	return (file[len - 1] != 'r' && file[len - 2] != 'e'
+		&& file[len - 3] != 'b' && file[len - 4] != '.');
+}
+
+static int get_len(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (*s || s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }

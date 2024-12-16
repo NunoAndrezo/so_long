@@ -6,7 +6,7 @@
 /*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:55 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/06/13 18:07:53 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:00:48 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_there_newline(char *s)
 		return (0);
 }
 
-int	ft_strlen(char *s)
+int	ft_strlen_get(char *s)
 {
 	int	i;
 

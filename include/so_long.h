@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 20:40:57 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:05:46 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_game
 {
 	char 		**map;
 	t_objects	object_counter;
-	t_map 		map_dimensions;
+	t_map 	map_dimensions;
 }	t_game;
 
 typedef struct	s_win
@@ -90,5 +90,7 @@ void	object_initialization(t_game *game);
 bool	valid_map(char *path, t_game *game);
 void	init_game(t_game *game);
 bool	check_walls(t_game *game);
+void flood_fill(t_game *game);
+int		get_len(char *s);
 
 #endif

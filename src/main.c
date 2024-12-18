@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 21:18:56 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:05:50 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static int get_len(char *s);
+int		get_len(char *s);
 static bool	is_ber(char *file);
 
 int	main(int ac, char **av)
@@ -37,7 +37,7 @@ static bool	is_ber(char *file)
 		&& file[len - 3] != 'b' && file[len - 4] != '.');
 }
 
-static int get_len(char *s)
+int get_len(char *s)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 21:18:55 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:36:31 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	map_get_dimensions(char *path, t_game *game)
 	}
 	line = get_next_line(fd);
 	game->map_dimensions.y = 1;
-	game->map_dimensions.x = getlen(line);
+	game->map_dimensions.x = get_len(line);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		game->map_dimensions.y++;
-		if (getlen(line) != game->map_dimensions.x)
+		if (get_len(line) != game->map_dimensions.x)
 		{
 			free(line);
 			write (2, "Error\n", 6);
@@ -70,7 +70,7 @@ static void	map_get_dimensions(char *path, t_game *game)
 	close(fd);
 }
 
-static bool	chek_playability(t_game *game)
+static bool	check_playability(t_game *game)
 {
 	int	i;
 	int	j;

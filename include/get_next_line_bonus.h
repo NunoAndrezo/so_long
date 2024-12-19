@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 22:41:47 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 20:00:51 by nneves-a         ###   ########.fr       */
+/*   Created: 2024/06/05 22:41:38 by nneves-a          #+#    #+#             */
+/*   Updated: 2024/12/19 03:00:20 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 15
+#  define BUFFER_SIZE 10000
 # endif
 
 # include <unistd.h>
@@ -24,10 +24,11 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_strlen_get_next_line(const char *str);
+char	*ft_strchr(const char *s, int i);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);
-int		ft_strlen_get(char *s);
-void	ft_organize_buffer(char *buffer);
-char	*ft_strjoin_gnl(char *line, char *buffer);
-int		is_there_newline(char *s);
 
 #endif

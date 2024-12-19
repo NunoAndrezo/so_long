@@ -2,11 +2,12 @@
 NAME                = so_long
 
 # Directories
-PRINTF              = ./printf/libftprintf.a
-INC                 = include
-SRC_DIR             = src
-OBJ_DIR             = obj
-LIBDIR_MLX          = mlx_linux
+PRINTF		= ./printf/libftprintf.a
+LIBFT 		= ./libft/libft.a
+INC			= include
+SRC_DIR		= src
+OBJ_DIR		= obj
+LIBDIR_MLX		= mlx_linux
 
 # Libraries
 MLX = -L$(LIBDIR_MLX) -lmlx_Linux -lXext -lX11 -lm
@@ -31,11 +32,13 @@ start:
 
 $(PRINTF):
 					@make -C ./printf
+$(LIBFT):
+					@make -C ./libft
 
 all:                $(NAME)
 
-$(NAME):            loading_bar $(OBJ) $(PRINTF)
-					@$(CC) $(CFLAGS) $(OBJ) $(MLX) $(PRINTF) -o $(NAME)
+$(NAME):            loading_bar $(OBJ) $(PRINTF) $(LIBFT)
+					@$(CC) $(CFLAGS) $(OBJ) $(MLX) $(PRINTF) $(LIBFT) -o $(NAME)
 
 # Compile object files from source files
 $(OBJ_DIR)/%.o:     $(SRC_DIR)/%.c
@@ -58,10 +61,12 @@ loading_bar:
 clean:
 					@$(RM) -r $(OBJ_DIR)
 					@make clean -C ./printf
+					@make clean -C ./libft
 
 fclean:             clean
 					@$(RM) $(NAME)
 					@make fclean -C ./printf
+					@make clean -C ./libft
 
 re:                 fclean all
 

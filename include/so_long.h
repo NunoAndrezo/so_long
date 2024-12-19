@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/17 22:05:46 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/18 19:12:53 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 # include "../printf/ft_printf.h"
 # include <sys/stat.h>
 # include <fcntl.h>
-# include "../get_next_line/get_next_line_bonus.h"
-# include "../get_next_line/get_next_line.h"
+# include "get_next_line_bonus.h"
 # include "../libft/libft.h"
 
 

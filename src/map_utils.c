@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:07:38 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 21:18:54 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:08:58 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static int	find_last(char **s)
 
 void	object_initialization(t_game *game)
 {
-	t_objects object_counter;
-
 	game->object_counter.P = 0;
 	game->object_counter.E = 0;
 	game->object_counter.C = 0;

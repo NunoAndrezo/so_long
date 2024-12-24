@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:34 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/19 02:58:36 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/23 18:34:11 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	char	*str;
+	char		*str;
 
 	str = (char *)malloc(sizeof(*s) * (len + 1));
 	if (str == 0)
@@ -61,8 +61,8 @@ char	*ft_strchr(const char *s, int i)
 
 char	*ft_strdup(const char *s)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 	char	*str;
 
 	i = 0;
@@ -79,8 +79,8 @@ char	*ft_strdup(const char *s)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 	char	*str;
 
 	i = 0;

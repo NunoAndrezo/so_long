@@ -6,34 +6,11 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:07:38 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/18 19:08:58 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/23 19:15:28 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-static int	find_last(char **s)
-{
-	int			i;
-	int			j;
-	static int	flag;
-
-	i = 0;
-	j = -1;
-	flag = 0;
-	while (s[++j][i])
-	{
-		i = 0;
-		while (s[j][i])
-			i++;
-		if (flag == 0)
-		{
-			flag++;
-			return (i);
-		}
-	}
-	return (j);
-}
 
 void	object_initialization(t_game *game)
 {
@@ -46,27 +23,23 @@ bool	check_walls(t_game *game)
 {
 	int	i;
 	int	j;
-	int	last_char;
-	int	last_word;
+	int	last_row;
+	int	last_col;
 
 	i = -1;
 	j = -1;
-	last_char = find_last(game->map);
-	last_word = find_last(game->map);
+	last_row = game->map_dimensions.y - 1;
+	last_col = game->map_dimensions.x - 1;
 	//need to find last line and collumn
-	while (game->map[0][++i])
-		if (game->map[0][i] != '1')
+	while (++i < game->map_dimensions.x)
+	{
+		if (game->map[0][i] != '1' || game->map[last_row][i] != '1')
 			return (false);
-	while (game->map[++j][0])
-		if (game->map[j][0] != '1')
+	}
+	while (++j < game->map_dimensions.y)
+	{
+		if (game->map[j][0] != '1' || game->map[j][last_col] != '1')
 			return (false);
-	i = -1;
-	j = -1;
-	while (game->map[last_word][++i])
-		if (game->map[last_word][i] != '1')
-			return (false);
-	while (game->map[++j][last_char])
-		if (game->map[j][last_char] != '1')
-			return (false);
+	}
 	return (true);
 }

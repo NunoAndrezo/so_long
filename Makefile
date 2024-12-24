@@ -1,5 +1,5 @@
 # Executable Name
-NAME                = so_long
+NAME			= so_long
 
 # Directories
 PRINTF		= ./printf/libftprintf.a

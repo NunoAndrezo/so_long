@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:29 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/19 03:11:21 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/23 18:34:13 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_next_line(int fd)
 
 static char	*ft_get_line(int fd, char *buffer, char *chars_left)
 {
-	int		read_line;
+	int	read_line;
 	char	*char_temp;
 
 	read_line = 1;
@@ -64,7 +64,7 @@ static char	*ft_get_line(int fd, char *buffer, char *chars_left)
 static char	*extract(char *line)
 {
 	size_t	count;
-	char	*chars_left;
+	char		*chars_left;
 
 	count = 0;
 	while (line[count] != '\n' && line[count] != '\0')

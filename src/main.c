@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/19 03:03:22 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/24 03:49:01 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	main(int ac, char **av)
 	t_game	game;
 	int		len;
 
+	if (!av[1] || ac != 2)
+		return (write (2, "Error\n", 6));
 	len = get_len(av[1]);
-	if (ac != 2 || len < 4 || !is_ber(av[1]))
+	if (len < 4 || !is_ber(av[1]))
 		return (write (2, "Error\n", 6));
 	if (valid_map(av[1], &game) == true)
 	{
@@ -45,7 +47,7 @@ int get_len(char *s)
 	int	i;
 
 	i = 0;
-	if (!*s || !s)
+	if (!(*s) || !s)
 		return (0);
 	while (s[i])
 		i++;

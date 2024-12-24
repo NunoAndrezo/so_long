@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/19 03:11:19 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/24 03:49:00 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static bool	map_copy(char *path, t_game *game)
 	int	i;
 
 	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		write(2, "Error: Cannot open file\n", 24);
+		return (false);
+	}
 	i = 0;
 	game->map[i] = get_next_line(fd);
 	while (++i < game->map_dimensions.y)
@@ -44,6 +49,7 @@ static bool	map_copy(char *path, t_game *game)
 		{
 			//free_my_map(game->map, i);
 			write (2, "Error\n", 6);
+			close(fd);
 			return (false);
 		}
 	}
@@ -51,40 +57,49 @@ static bool	map_copy(char *path, t_game *game)
 	{
 		//free_my_map(game->map, i);
 		write (2, "Error\n", 6);
+		close(fd);
 		return (false);
 	}
+	close(fd);
 	return (true);
 }
 
 static void	map_get_dimensions(char *path, t_game *game)
 {
-	int	fd;
-	char	*line;
+	int fd;
+	char *line;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		write (2, "Error\n", 6);
+		write(2, "Error: Cannot open file\n", 24);
 		exit(EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
+	if (!line)
+	{
+		write(2, "Error: Empty or invalid map file\n", 33);
+		close(fd);
+		exit(EXIT_FAILURE);
+	}
 	game->map_dimensions.y = 1;
 	game->map_dimensions.x = get_len(line);
 	while (line)
 	{
-		printf("game1\n");
 		free(line);
 		line = get_next_line(fd);
-		game->map_dimensions.y++;
-		if (get_len(line) != game->map_dimensions.x)
+		if (line)
 		{
-			free(line);
-			write (2, "Error\n", 6);
-			exit(EXIT_FAILURE);
+			game->map_dimensions.y++;
+			if (get_len(line) != game->map_dimensions.x)
+			{
+				free(line);
+				write(2, "Error: Inconsistent row lengths\n", 33);
+				close(fd);
+				exit(EXIT_FAILURE);
+			}
 		}
 	}
-	if (line)
-		free(line);
 	close(fd);
 }
 

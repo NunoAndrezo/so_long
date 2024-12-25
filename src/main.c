@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/24 03:49:01 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:36:07 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ int	main(int ac, char **av)
 	if (!av[1] || ac != 2)
 		return (write (2, "Error\n", 6));
 	len = get_len(av[1]);
+	printf("len: %d\n", len);
 	if (len < 4 || !is_ber(av[1]))
 		return (write (2, "Error\n", 6));
+	printf("File is .ber\n");
 	if (valid_map(av[1], &game) == true)
 	{
+		printf("Map is valid\n");
 		flood_fill(&game);
 		init_game(&game);
 	}

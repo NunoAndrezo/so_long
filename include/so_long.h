@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/18 19:12:53 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:54:04 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ t_img	new_file_img(char *path, t_win window);
 t_win	new_window(int width, int height, char *title, bool resizable);
 void	destroy_image(t_img img, t_win window);
 void	destroy_window(t_win w);
-void	object_initialization(t_game *game);
+void	object_initialization(t_game **game);
 bool	valid_map(char *path, t_game *game);
 void	init_game(t_game *game);
 bool	check_walls(t_game *game);
-void flood_fill(t_game *game);
-int		get_len(char *s);
+void	flood_fill(t_game *game);
+int	get_len(char *s);
 
 #endif

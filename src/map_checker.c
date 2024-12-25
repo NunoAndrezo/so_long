@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/24 03:49:00 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/25 16:59:18 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	valid_map(char *path, t_game *game)
 	game->map = ft_calloc(sizeof(char *), game->map_dimensions.y);
 	if (!game->map)
 		return (false);
+	printf("Map dimensions: %d x %d\n", game->map_dimensions.x, game->map_dimensions.y);
 	if (map_copy(path, game))
 		return (check_playability(game));
 	return (false);
@@ -61,6 +62,7 @@ static bool	map_copy(char *path, t_game *game)
 		return (false);
 	}
 	close(fd);
+	printf("Map copied\n");
 	return (true);
 }
 
@@ -110,12 +112,13 @@ static bool	check_playability(t_game *game)
 	
 	i = 0;
 	j = 0;
-	object_initialization(game);
+	object_initialization(&game);
 	while (game->map[j][i])
 	{
 		i = 0;
 		while (game->map[j][i])
 		{
+			printf("game->map[%d][%d]: %c\n", j, i, game->map[j][i]);
 			if (game->map[j][i] == 'P')
 				game->object_counter.P++;
 			if (game->map[j][i] == 'C')
@@ -126,8 +129,12 @@ static bool	check_playability(t_game *game)
 		}
 		j++;
 	}
+	printf("P: %d, C: %d, E: %d\n", game->object_counter.P, game->object_counter.C, game->object_counter.E);
 	if (game->object_counter.P != 1 || game->object_counter.C <= 0
 		|| game->object_counter.E != 1 || !check_walls(game))
+	{
+		write(2, "Error: Invalid map\n", 19);
 		return (false);
+	}
 	return (true);
 }

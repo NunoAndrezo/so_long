@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line_so_long.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:29 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/23 18:34:13 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/28 15:11:16 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 	static char	*chars_left[FOPEN_MAX];
-
+	int		i;
+	
 	if ((fd < 0 && fd >= FOPEN_MAX) || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -32,6 +33,9 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	chars_left[fd] = extract(line);
+	i = ft_strlen_get_next_line(line);
+	if (line[i - 1] == '\n')
+		line[i - 1] = '\0';
 	return (line);
 }
 
@@ -66,6 +70,8 @@ static char	*extract(char *line)
 	size_t	count;
 	char		*chars_left;
 
+	if (!line || *line == '\0')
+		return (NULL);
 	count = 0;
 	while (line[count] != '\n' && line[count] != '\0')
 		count++;
@@ -80,3 +86,27 @@ static char	*extract(char *line)
 	line[count + 1] = '\0';
 	return (chars_left);
 }
+
+/* 
+int main(void)
+{
+	int	fd;
+	char	*line;
+
+	// Open the file
+	fd = open("maps/map1.ber", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error opening file");
+		return (EXIT_FAILURE);
+	}
+	// Read the file line by line
+	printf("Reading file...\n");
+	while ((line = get_next_line(fd)))
+	{
+		printf("Original line: %s\n", line);
+		free(line);
+	}
+	close(fd);
+	return (EXIT_SUCCESS);
+} */

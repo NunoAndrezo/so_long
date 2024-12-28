@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/25 16:59:18 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/28 15:14:58 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	valid_map(char *path, t_game *game)
 	game->map = ft_calloc(sizeof(char *), game->map_dimensions.y);
 	if (!game->map)
 		return (false);
+	game->map[game->map_dimensions.y] = NULL;
 	printf("Map dimensions: %d x %d\n", game->map_dimensions.x, game->map_dimensions.y);
 	if (map_copy(path, game))
 		return (check_playability(game));
@@ -32,8 +33,9 @@ bool	valid_map(char *path, t_game *game)
 
 static bool	map_copy(char *path, t_game *game)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
+	char		*line;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -42,29 +44,42 @@ static bool	map_copy(char *path, t_game *game)
 		return (false);
 	}
 	i = 0;
-	game->map[i] = get_next_line(fd);
-	while (++i < game->map_dimensions.y)
+	while (i < game->map_dimensions.y)
 	{
-		game->map[i] = get_next_line(fd);
-		if (!game->map[i] || !game->map[i][0])
+		line = get_next_line(fd);
+		if (!line) // Handle early EOF or read failure
 		{
-			//free_my_map(game->map, i);
-			write (2, "Error\n", 6);
+			write(2, "Error: Map dimensions mismatch\n", 32);
+			// free_my_map(game->map, i);
 			close(fd);
 			return (false);
 		}
+		// Strip newline if present
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
+		game->map[i] = line; // Store line in map
+		if (!game->map[i][0]) // Handle empty lines
+		{
+			write(2, "Error: Invalid map content\n", 27);
+			// free_my_map(game->map, i);
+			close(fd);
+			return (false);
+		}
+		i++;
 	}
-	if (i != game->map_dimensions.y)
+	// Check if we read the exact number of lines expected
+	if (i != game->map_dimensions.y || get_next_line(fd)) // Extra lines in file
 	{
-		//free_my_map(game->map, i);
-		write (2, "Error\n", 6);
+		write(2, "Error: Map dimensions mismatch\n", 32);
+		// free_my_map(game->map, i);
 		close(fd);
 		return (false);
 	}
 	close(fd);
-	printf("Map copied\n");
+	printf("Map copied successfully\n");
 	return (true);
 }
+
 
 static void	map_get_dimensions(char *path, t_game *game)
 {
@@ -113,12 +128,11 @@ static bool	check_playability(t_game *game)
 	i = 0;
 	j = 0;
 	object_initialization(&game);
-	while (game->map[j][i])
+	while (game->map[j])
 	{
 		i = 0;
 		while (game->map[j][i])
 		{
-			printf("game->map[%d][%d]: %c\n", j, i, game->map[j][i]);
 			if (game->map[j][i] == 'P')
 				game->object_counter.P++;
 			if (game->map[j][i] == 'C')
@@ -133,7 +147,7 @@ static bool	check_playability(t_game *game)
 	if (game->object_counter.P != 1 || game->object_counter.C <= 0
 		|| game->object_counter.E != 1 || !check_walls(game))
 	{
-		write(2, "Error: Invalid map\n", 19);
+		write(2, "Error: Invalid collectibles, player or exit\n", 45);
 		return (false);
 	}
 	return (true);

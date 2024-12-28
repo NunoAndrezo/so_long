@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils_so_long.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:41:34 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/23 18:34:11 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/28 15:09:07 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	j;
 	char		*str;
 
+	if ((int)start > ft_strlen_get_next_line(s))
+		return (ft_strdup(""));
 	str = (char *)malloc(sizeof(*s) * (len + 1));
 	if (str == 0)
 		return (NULL);
@@ -66,6 +68,8 @@ char	*ft_strdup(const char *s)
 	char	*str;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	j = ft_strlen_get_next_line(s);
 	str = (char *)malloc(sizeof(*str) * (j + 1));
 	while (i < j)
@@ -85,6 +89,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen_get_next_line(s1) + ft_strlen_get_next_line(s2) + 1));
 	if (str == NULL)
 		return (NULL);

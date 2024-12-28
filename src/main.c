@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/25 16:36:07 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/28 16:59:34 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ int	main(int ac, char **av)
 	int		len;
 
 	if (!av[1] || ac != 2)
-		return (write (2, "Error\n", 6));
+		return (write (2, "Error: Invalid number of arguments\n", 36));
 	len = get_len(av[1]);
-	printf("len: %d\n", len);
 	if (len < 4 || !is_ber(av[1]))
-		return (write (2, "Error\n", 6));
-	printf("File is .ber\n");
+		return (write (2, "Error: Invalid file extension\n", 30));
 	if (valid_map(av[1], &game) == true)
 	{
 		printf("Map is valid\n");
@@ -54,7 +52,5 @@ int get_len(char *s)
 		return (0);
 	while (s[i])
 		i++;
-	if (s[i] == '\n')
-		return (--i);
 	return (i);
 }

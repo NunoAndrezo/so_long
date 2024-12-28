@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:07:38 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/25 16:52:20 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/28 15:13:41 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,22 @@ bool	check_walls(t_game *game)
 	int	last_row;
 	int	last_col;
 
-	i = -1;
-	j = -1;
+	i = 0;
+	j = 0;
 	last_row = game->map_dimensions.y - 1;
 	last_col = game->map_dimensions.x - 1;
 	//need to find last line and collumn
-	while (game->map[0][++i])
+	while (game->map[j][i])
 	{
-		printf("game->map[0][%d]: %c\n", i, game->map[0][i]);
-		printf("game->map[last_row][%d]: %c\n", i, game->map[last_row][i]);
 		if (game->map[0][i] != '1' || game->map[last_row][i] != '1')
 			return (false);
+		i++;
 	}
-	while (game->map[++j][0])
+	while (game->map[j])
 	{
-		printf("game->map[%d][0]: %c\n", j, game->map[j][0]);
-		printf("game->map[%d][last_col]: %c\n", j, game->map[j][last_col]);
 		if (game->map[j][0] != '1' || game->map[j][last_col] != '1')
 			return (false);
+		j++;
 	}
 	return (true);
 }

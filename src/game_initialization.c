@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initialization.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:41:01 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/16 20:11:26 by nneves-a         ###   ########.fr       */
+/*   Updated: 2024/12/29 14:09:50 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	init_game(t_game *game)
 	t_win		game_window;
 	t_img		image;
 
-	if (game)
+	printf("Inside Initializing game\n");
+	if (!game)
 		return ;
 	game_window = new_window(WIDTH, HEIGHT, "So Long", false);
-
+	printf("Window created\n");
 	// creating a image and putting it to the window:
 	image = new_file_img("assets/menu_start_game_resized1.xpm", game_window);
 	mlx_put_image_to_window(game_window.mlx_ptr, game_window.window_ptr, image.img_ptr, 0, 0);

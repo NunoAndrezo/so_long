@@ -1,8 +1,0 @@
-->verificar se e .ber
--> Ler o mapa, get_next_line
--> min row e colm 3
--> ver se as linhas tem o mesmo comprimento
-->fload fill 
-->P != 1
-->C > 0
-->E != 1

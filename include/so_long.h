@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/25 16:54:04 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/31 01:58:21 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@
 # include "get_next_line_bonus.h"
 # include "../libft/libft.h"
 
-
-#define MLX_SYNC_IMAGE_WRITABLE		1
-#define MLX_SYNC_WIN_FLUSH_CMD		2
-#define MLX_SYNC_WIN_CMD_COMPLETED		3
-#define WIDTH 					600
-#define HEIGHT 					600
-
 // Map
 typedef struct s_map
 {
@@ -49,14 +42,6 @@ typedef struct s_objects
 
 } t_objects;
 
-// Game
-typedef struct s_game
-{
-	char 		**map;
-	t_objects	object_counter;
-	t_map 	map_dimensions;
-}	t_game;
-
 typedef struct	s_win
 {
 	void	*mlx_ptr;
@@ -66,9 +51,9 @@ typedef struct	s_win
 }	t_win;
 
 // Images
+
 typedef struct	s_img
 {
-	t_win	window;
 	void	*img_ptr;
 	char	*addr_ptr;
 	int	bits_per_pixel;
@@ -76,12 +61,34 @@ typedef struct	s_img
 	int	endian;
 	int	width;
 	int	height;
+	int	tile_size;
 }	t_img;
+
+typedef struct	s_all_img
+{
+	t_img	wall_img;
+	t_img	wall2_img;	
+	t_img	player_img;
+	t_img	exit_img;
+	t_img	collectible_img;
+	t_img	floor_img;
+}	t_all_img;
+
+// Game
+typedef struct s_game
+{
+	char 		**map;
+	t_win		game_window;
+	t_objects	object_counter;
+	t_map 	map_dimensions;
+	t_map 	player_position;
+	t_all_img	all_images;
+}	t_game;
 
 // Game variables
 
-
 t_img	new_file_img(char *path, t_win window);
+t_img	new_img(int w, int h, t_win window);
 t_win	new_window(int width, int height, char *title, bool resizable);
 void	destroy_image(t_img img, t_win window);
 void	destroy_window(t_win w);
@@ -91,5 +98,9 @@ void	init_game(t_game *game);
 bool	check_walls(t_game *game);
 void	flood_fill(t_game *game);
 int	get_len(char *s);
+void	map_to_image(t_game *game);
+void	walk_with_maincharacter(int k, t_game *game);
+int	exit_game(t_game *game);
+void	count_collectibles(t_game *game);
 
 #endif

@@ -6,11 +6,13 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:07:38 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/28 15:13:41 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/31 02:33:03 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+void	count_collectibles(t_game *game);
 
 void	object_initialization(t_game **game)
 {
@@ -30,18 +32,37 @@ bool	check_walls(t_game *game)
 	j = 0;
 	last_row = game->map_dimensions.y - 1;
 	last_col = game->map_dimensions.x - 1;
-	//need to find last line and collumn
-	while (game->map[j][i])
+	while (i < game->map_dimensions.x)
 	{
 		if (game->map[0][i] != '1' || game->map[last_row][i] != '1')
 			return (false);
 		i++;
 	}
-	while (game->map[j])
+	while (j < game->map_dimensions.y)
 	{
 		if (game->map[j][0] != '1' || game->map[j][last_col] != '1')
 			return (false);
 		j++;
 	}
 	return (true);
+}
+
+void	count_collectibles(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (j < game->map_dimensions.y)
+	{
+		i = 0;
+		while (i < game->map_dimensions.x)
+		{
+			if (game->map[j][i] == 'C')
+				game->object_counter.C++;
+			i++;
+		}
+		j++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/29 14:08:11 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/31 00:45:37 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ int	main(int ac, char **av)
 	len = get_len(av[1]);
 	if (len < 4 || !is_ber(av[1]))
 		return (write (2, "Error: Invalid file extension\n", 30));
-	printf("Is map valid?\n");
 	if (valid_map(av[1], &game) == true)
 	{
-		printf("Map is valid\n");
 		flood_fill(&game);
-		printf("Flooded and filled, map is valid\n");
-		printf("Initializing game\n");
+		count_collectibles(&game);
 		init_game(&game);
 	}
 	return (0);

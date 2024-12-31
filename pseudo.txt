@@ -2,6 +2,8 @@
 2. fload ao mapa e ver se e valido.
 3. passar o mapa para o jogo
 4. abrires a janela, init
+
+
 5. read map and send to image. (ex: 00 passa a parede);
 6. image do map para window.
 7. meter player na imagem.

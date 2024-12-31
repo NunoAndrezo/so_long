@@ -1,0 +1,16 @@
+1. Memory Leaks
+56 bytes in 1 block are still reachable at ft_calloc in map_checker.c:25 (likely related to the map validation).
+56 bytes in 7 blocks are indirectly lost due to allocations in initialize_visited and flood_fill.
+64 bytes in 1 block are reachable in ft_strjoin from get_next_line_utils_so_long.c:94 and ft_get_line in get_next_line_so_long.c:59.
+Multiple allocations related to images (88 bytes per block) are reachable due to mlx_int_new_xshm_image and mlx_xpm_file_to_image.
+
+2. Memory Lost
+112 bytes (56 direct and 56 indirect) are definitely lost due to a malloc in initialize_visited from flood_fill.c:50. This suggests a memory leak in the flood-fill function.
+No immediate "definite" memory leaks in other parts, but the image-related allocations and some map-related allocations still need to be freed after use.
+
+Suggested Actions:
+Ensure memory cleanup after game logic: Check that all dynamically allocated memory (especially images and visited structures) is freed after they're no longer needed.
+Image memory: Given the number of mlx_new_image calls, ensure that each image is properly freed with mlx_destroy_image() once it is no longer required.
+Visited array: In initialize_visited, verify that all allocated memory is freed once the flood fill is complete.
+Map structure: In valid_map, you should ensure that memory allocated for map validation (such as ft_calloc) is freed at the end.
+General practice: Always double-check that for every malloc, calloc, or ft_calloc, there is a corresponding free in the correct part of your program (e.g., at the end of game termination, map loading, or image usage).

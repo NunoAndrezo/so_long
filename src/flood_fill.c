@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:19:43 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/29 14:07:36 by nuno             ###   ########.fr       */
+/*   Updated: 2024/12/31 00:40:52 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void flood_fill(t_game *game)
 	if (game->object_counter.C != 0 || game->object_counter.E != 0)
 	{
 		write(2, "Error, invalid map (inside flood_fill)\n", 39);
-		//free_malloc(&visited, game);
+		free_visited(visited, game->map_dimensions.y);
 		exit(1);
 	}
 }

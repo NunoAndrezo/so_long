@@ -6,13 +6,13 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/31 02:32:31 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/02 13:49:20 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void free_my_map(char **map, int size);
+void		free_my_map(char **map, int size);
 static bool	map_copy(char *path, t_game *game);
 static void	map_get_dimensions(char *path, t_game *game);
 static bool	check_playability(t_game *game);
@@ -149,7 +149,7 @@ static bool	check_playability(t_game *game)
 	return (true);
 }
 
-static void free_my_map(char **map, int size)
+void free_my_map(char **map, int size)
 {
 	int i;
 

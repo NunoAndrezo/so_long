@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:41:01 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/31 01:39:41 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/02 13:48:03 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_game(t_game *game)
 	game->game_window = new_window(game->map_dimensions.x * 32, game->map_dimensions.y * 32, "So_Long", false);
 	map_to_image(game);
 	mlx_key_hook(game->game_window.window_ptr, keyboard, game);
-	mlx_hook(game->game_window.window_ptr, 17, 1L<<0, exit_game, &game);
+	mlx_hook(game->game_window.window_ptr, 17, 1L<<0, exit_game, game);
 	mlx_loop(game->game_window.mlx_ptr);
 }
 
@@ -36,6 +36,17 @@ int	exit_game(t_game *game)
 {
 	if (game)
 	{
+		if (game->map)
+			free_my_map(game->map, game->map_dimensions.y);
+		if (game->all_images.wall_img.img_ptr)
+		{
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.wall_img.img_ptr);
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.wall2_img.img_ptr);
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.floor_img.img_ptr);
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.exit_img.img_ptr);
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.collectible_img.img_ptr);
+			mlx_destroy_image(game->game_window.mlx_ptr, game->all_images.player_img.img_ptr);
+		}
 		if (game->game_window.mlx_ptr && game->game_window.window_ptr)
 			mlx_destroy_window(game->game_window.mlx_ptr, game->game_window.window_ptr);
 		if (game->game_window.mlx_ptr)
@@ -47,8 +58,6 @@ int	exit_game(t_game *game)
 		ft_printf("Thank you for playing!\n");
 		exit(EXIT_SUCCESS);
 	}
-		/* if (image && image->img_ptr)
-			mlx_destroy_image(game->mlx_ptr, image->img_ptr); */
 	return (0);
 }
 

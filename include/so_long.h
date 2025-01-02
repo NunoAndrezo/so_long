@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:45:10 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/31 01:58:21 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/02 13:48:52 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 // Map
 typedef struct s_map
 {
-	int x;
-	int y;
+	int	x;
+	int	y;;
 } t_map;
 
 // Objects, PLAYER, EXIT, COLLECTIBLES
@@ -102,5 +102,6 @@ void	map_to_image(t_game *game);
 void	walk_with_maincharacter(int k, t_game *game);
 int	exit_game(t_game *game);
 void	count_collectibles(t_game *game);
+void	free_my_map(char **map, int size);
 
 #endif

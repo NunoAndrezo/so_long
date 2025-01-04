@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:41:01 by nneves-a          #+#    #+#             */
-/*   Updated: 2025/01/03 02:05:17 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/04 17:11:38 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_game(t_game *game)
 	if (game->map_dimensions.x == 0 || game->map_dimensions.y == 0 || game->map_dimensions.x > 60 || game->map_dimensions.y > 32)
 	{
 		write(2, "Error: Invalid map, map dimensions must be between 4x3 and 60x32\n", 65);
-		free(game->map);
+		free_my_map(game->map, game->map_dimensions.y);
 		exit(EXIT_FAILURE);
 	}
 	game->game_window = new_window(game->map_dimensions.x * 32, game->map_dimensions.y * 32, "So_Long", false);
@@ -38,7 +38,7 @@ int	exit_game(t_game *game)
 	{
 		if (game->map)
 		{
-			free(game->map);
+			free_my_map(game->map, game->map_dimensions.y);
 			game->map = NULL;
 		}
 		if (game->all_images.wall_img.img_ptr)

@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:31:00 by nneves-a          #+#    #+#             */
-/*   Updated: 2025/01/03 01:49:00 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/04 17:10:24 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,25 @@ static void	map_get_dimensions(char *path, t_game *game)
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
 	game->map_dimensions.y = 1;
 	game->map_dimensions.x = get_len(line);
-	free(line);
-	while ((line = get_next_line(fd)) != NULL)
+	while (line)
 	{		
+		free(line);
+		line = get_next_line(fd);
+		if (line && line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
+		if (!line)
+			break ;
 		if (game->map_dimensions.x != get_len(line))
 		{
-			write(2, "Error: Invalid map dimensions\n", 30);
+			write(2, "Error: Invalid number of columns\n", 34);
 			free(line);
 			close(fd);
 			exit(EXIT_FAILURE);
 		}
-		free(line);
 		game->map_dimensions.y++;
 	}
 	close(fd);
@@ -101,7 +107,6 @@ static bool	map_copy(char *path, t_game *game)
 			free_my_map(game->map, i);
 			exit(EXIT_FAILURE);
 		}
-		free(line);
 		i++;
 	}
 	if (i != game->map_dimensions.y || get_next_line(fd)) // Extra lines in file

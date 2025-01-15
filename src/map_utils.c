@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 18:07:38 by nneves-a          #+#    #+#             */
-/*   Updated: 2024/12/31 02:33:03 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/05 22:09:32 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	count_collectibles(t_game *game);
 
 void	object_initialization(t_game **game)
 {
-	(*game)->object_counter.P = 0;
-	(*game)->object_counter.E = 0;
-	(*game)->object_counter.C = 0;
+	(*game)->object_counter.p = 0;
+	(*game)->object_counter.e = 0;
+	(*game)->object_counter.c = 0;
 }
 
 bool	check_walls(t_game *game)
@@ -60,7 +60,7 @@ void	count_collectibles(t_game *game)
 		while (i < game->map_dimensions.x)
 		{
 			if (game->map[j][i] == 'C')
-				game->object_counter.C++;
+				game->object_counter.c++;
 			i++;
 		}
 		j++;

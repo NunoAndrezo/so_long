@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:29:27 by hladeiro          #+#    #+#             */
-/*   Updated: 2025/01/04 17:09:30 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/05 21:16:37 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_next_line(int fd)
 {
 	static char	str[BUFFER_SIZE + 1];
-	t_data	data;
+	t_data		data;
 
 	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);

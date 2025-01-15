@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nneves-a <nneves-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:05:18 by nneves-a          #+#    #+#             */
-/*   Updated: 2025/01/04 16:49:21 by nuno             ###   ########.fr       */
+/*   Updated: 2025/01/05 20:10:53 by nneves-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int		get_len(char *s);
+int			get_len(char *s);
 static bool	is_ber(char *file);
 
 int	main(int ac, char **av)
@@ -34,17 +34,19 @@ int	main(int ac, char **av)
 	}
 	return (0);
 }
+
 static bool	is_ber(char *file)
 {
 	int	len;
 
 	len = get_len(file);
-	if (file[len - 4] == '.' && file[len - 3] == 'b' && file[len - 2] == 'e' && file[len - 1] == 'r')
+	if (file[len - 4] == '.' && file[len - 3] == 'b'
+		&& file[len - 2] == 'e' && file[len - 1] == 'r')
 		return (1);
 	return (0);
 }
 
-int get_len(char *s)
+int	get_len(char *s)
 {
 	int	i;
 

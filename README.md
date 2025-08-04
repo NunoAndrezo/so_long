@@ -200,7 +200,7 @@ mlx_put_image_to_window(mlx, win, img_wall, x * 32, y * 32);
 Check for memory leaks with Valgrind:
 
 ```bash
-valgrind ./so_long maps/test.ber
+valgrind ./so_long maps/map1.ber
 ```
 
 ---

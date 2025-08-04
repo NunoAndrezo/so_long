@@ -1,4 +1,3 @@
-```markdown
 # 🎮 so_long – 42 Lisboa
 
 > First graphical project of the 42 cursus: build a simple 2D game using **MiniLibX (mlx_linux)**. The player navigates a map, collects items, and reaches the exit — all while following strict coding norms and managing resources carefully.
@@ -33,7 +32,7 @@ The game consists of:
 - The player can move **up, down, left, right**.
 - The player **must collect all collectibles (`C`) before reaching the exit (`E`)**.
 - Invalid maps or inputs should output:  
-  ```
+  ```bash
   Error
   <descriptive message>
   ```
@@ -78,25 +77,25 @@ sudo apt-get install xorg libxext-dev libbsd-dev zlib1g-dev
 
 ### Controls
 
-| Key       | Action        |
-|-----------|---------------|
-| W / ↑     | Move up       |
-| A / ←     | Move left     |
-| S / ↓     | Move down     |
-| D / →     | Move right    |
-| ESC       | Quit game     |
+| Key       | Action     |
+|-----------|------------|
+| W / ↑     | Move up    |
+| A / ←     | Move left  |
+| S / ↓     | Move down  |
+| D / →     | Move right |
+| ESC       | Quit game  |
 
 ---
 
 ## 🏛️ Project Structure (Typical)
 
-```
+```text
 so_long/
 ├── assets/               # .xpm image files
 ├── maps/                 # .ber test maps
 ├── mlx_linux/            # MiniLibX library
 ├── src/                  # Source files
-├── includes/
+├── includes/             # Header files
 ├── Makefile
 └── README.md
 ```
@@ -105,12 +104,12 @@ so_long/
 
 ## 🧩 Mandatory Features
 
-- Map file parser and validator
-- Rendering via MiniLibX
-- Player movement and input handling
-- Step counter displayed in terminal
-- Win/lose detection
-- Clean error messages and memory deallocation
+- Map file parser and validator  
+- Rendering via MiniLibX  
+- Player movement and input handling  
+- Step counter displayed in terminal  
+- Win/lose detection  
+- Clean error messages and memory deallocation  
 
 ---
 
@@ -118,15 +117,15 @@ so_long/
 
 The map parser must validate:
 
-- File has a `.ber` extension
-- Map is rectangular
-- Surrounded by walls
-- Exactly **1 player**, **1 exit**, **≥ 1 collectible**
-- All tiles are reachable from the player (use BFS/DFS)
+- File has a `.ber` extension  
+- Map is rectangular  
+- Surrounded by walls  
+- Exactly **1 player**, **1 exit**, **≥ 1 collectible**  
+- All tiles are reachable from the player (use BFS/DFS)  
 
 Example error:
 
-```
+```bash
 Error
 Map is not rectangular
 ```
@@ -135,14 +134,14 @@ Map is not rectangular
 
 ## 🖼️ Graphics
 
-- Graphics are rendered using MiniLibX.
-- Each tile is typically **32x32 pixels**.
+- Graphics are rendered using MiniLibX.  
+- Each tile is typically **32×32 pixels**.  
 - Images (`.xpm` format) represent:
-  - Walls
-  - Floors
-  - Player
-  - Collectibles
-  - Exit (locked/unlocked)
+  - Walls  
+  - Floors  
+  - Player  
+  - Collectibles  
+  - Exit (locked/unlocked)  
 
 Example tile rendering logic:
 
@@ -154,35 +153,33 @@ mlx_put_image_to_window(mlx, win, img_wall, x * 32, y * 32);
 
 ## 🔄 Game Loop
 
-- On launch:
-  - Map is parsed and validated.
-  - Game window is opened.
-  - Initial frame is drawn.
-- During runtime:
-  - Key press events update the game state.
-  - Player position, collectible count, and steps are updated.
-  - Window is refreshed after every move.
-- On win/exit/ESC:
-  - Window is destroyed.
-  - Memory is freed.
-  - Program exits cleanly.
+- **Initialization**  
+  - Parse and validate the map.  
+  - Open the game window.  
+  - Draw the initial frame.  
+- **Runtime**  
+  - Listen for key events.  
+  - Update player position, collectible count, and step counter.  
+  - Refresh the window after each move.  
+- **Termination**  
+  - On win, exit, or ESC: destroy window, free memory, exit cleanly.
 
 ---
 
 ## 💥 Error Handling
 
 - All errors must output:
-  ```
+  ```bash
   Error
   <message>
   ```
-  to `stderr`.
-- All memory must be properly freed on exit or failure.
-- Examples of error scenarios:
-  - Invalid characters in the map
-  - Unreachable exit
-  - No collectibles
-  - File does not exist or wrong extension
+  to `stderr`.  
+- Free all allocated memory on exit or failure.  
+- Common error scenarios:
+  - Invalid characters in the map  
+  - Unreachable exit  
+  - No collectibles  
+  - File does not exist or wrong extension  
 
 ---
 
@@ -190,16 +187,16 @@ mlx_put_image_to_window(mlx, win, img_wall, x * 32, y * 32);
 
 ✅ Recommended `.ber` tests:
 
-- ✅ Valid square/rectangular map  
-- ✅ Map with unreachable exit  
-- ✅ No collectibles  
-- ✅ More than one player  
-- ✅ Exit without surrounding walls  
-- ✅ Extra newlines or empty lines  
-- ✅ Long corridors and dead ends  
-- ✅ Maps that try to trick flood fill
+- Valid rectangular map  
+- Map with unreachable exit  
+- No collectibles  
+- Multiple players  
+- Exit not surrounded by walls  
+- Extra newlines or empty lines  
+- Long corridors and dead ends  
+- Trick maps for flood fill  
 
-Use `valgrind` to check for memory leaks:
+Check for memory leaks with Valgrind:
 
 ```bash
 valgrind ./so_long maps/test.ber
@@ -209,22 +206,20 @@ valgrind ./so_long maps/test.ber
 
 ## 🚀 Bonus (If Implemented)
 
-If you choose to go further:
-
-- Animate sprites (player walking, collectibles spinning)
-- Display step count in the game window
-- Add enemies that move or patrol
-- Add sound effects (with SDL or other lib)
-- Implement scrolling maps or camera following the player
+- Animate sprites (player walking, collectibles spinning)  
+- Display step count in the game window  
+- Add enemies that patrol  
+- Integrate sound effects (SDL, libao, etc.)  
+- Implement scrolling or camera follow  
 
 ---
 
 ## 📚 Resources
 
-- 📘 [MiniLibX Docs](https://harm-smits.github.io/42docs/libs/minilibx/)
-- 🖥️ [42 Norminette](https://github.com/42School/norminette)
-- 🧭 [BFS/DFS Pathfinding](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)
-- 🛠️ [Valgrind Manual](https://valgrind.org/docs/manual/quick-start.html)
+- 📘 [MiniLibX Docs](https://harm-smits.github.io/42docs/libs/minilibx/)  
+- 🖥️ [42 Norminette](https://github.com/42School/norminette)  
+- 🧭 [BFS/DFS Pathfinding](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)  
+- 🛠️ [Valgrind Manual](https://valgrind.org/docs/manual/quick-start.html)  
 
 ---
 
@@ -235,4 +230,4 @@ If you choose to go further:
 🔗 GitHub: [@NunoAndrezo](https://github.com/NunoAndrezo)
 
 ---
-```
+```  

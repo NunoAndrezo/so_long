@@ -87,15 +87,16 @@ sudo apt-get install xorg libxext-dev libbsd-dev zlib1g-dev
 
 ---
 
-## 🏛️ Project Structure (Typical)
+## 🏛️ Project Structure
 
 ```text
 so_long/
 ├── assets/               # .xpm image files
-├── maps/                 # .ber test maps
-├── mlx_linux/            # MiniLibX library
-├── src/                  # Source files
 ├── includes/             # Header files
+├── libft/
+├── maps/                 # .ber test maps
+├── printf/
+├── src/                  # Source files
 ├── Makefile
 └── README.md
 ```
